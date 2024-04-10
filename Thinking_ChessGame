@@ -1,0 +1,67 @@
+import pygame
+import sys
+
+# Khởi tạo pygame
+pygame.init()
+
+# Màu sắc
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+
+# Kích thước cửa sổ
+WIDTH, HEIGHT = 800, 600
+SQUARE_SIZE = HEIGHT // 8
+
+# Tạo cửa sổ
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption('Chess Game')
+
+# Load hình ảnh quân cờ
+pawn_white = pygame.image.load('pawn_white.png')
+pawn_black = pygame.image.load('pawn_black.png')
+# Load hình ảnh cho các quân cờ khác
+
+# Hàm vẽ bảng cờ
+def draw_board():
+    for row in range(8):
+        for col in range(8):
+            if (row + col) % 2 == 0:
+                pygame.draw.rect(screen, WHITE, (col * SQUARE_SIZE, row * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE))
+            else:
+                pygame.draw.rect(screen, BLACK, (col * SQUARE_SIZE, row * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE))
+
+# Hàm vẽ quân cờ
+def draw_pieces(board):
+    for row in range(8):
+        for col in range(8):
+            piece = board[row][col]
+            if piece == 'P':
+                screen.blit(pawn_white, (col * SQUARE_SIZE, row * SQUARE_SIZE))
+            # Thêm các điều kiện cho các quân cờ khác
+
+# Bảng cờ
+board = [
+    ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'],
+    ['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'],
+    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+    ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
+    ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r']
+]
+
+# Vòng lặp game
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    screen.fill((0, 0, 0))
+    draw_board()
+    draw_pieces(board)
+    pygame.display.flip()
+
+pygame.quit()
+sys.exit()
